@@ -3,7 +3,7 @@
 .settings/
 *.swp
 
-.mtj/
+.mtj
 .mtj.tmp/
 
 bin/

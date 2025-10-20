@@ -20,7 +20,7 @@ public class main extends MIDlet implements Runnable {
 		Display.getDisplay(this).setCurrent(canvas);
 		bluetooth = new Bluetooth();
 		inet = new Communicator();
-		video = new CameraController();
+		video = new CameraController(160, 120);
 		if (!bluetooth.connect()) {panic("Bluetooth failure; halting");}
 		if (!inet.connect(bluetooth)) {panic("Internet failure; halting");}
 		if (!video.connect()) {panic("Video failure; halting");}
@@ -29,12 +29,12 @@ public class main extends MIDlet implements Runnable {
 	
 	public void run() {
 		while (true) {
-			try { Thread.sleep(200); // good enough for at most 5 fps
+			try { Thread.sleep(1000); // good enough for at most 5 fps
 			} catch (InterruptedException e) {}
-			byte[] frame = CameraController.to256Colors(video.getNextFrame());
+			byte[] frame = video.getFrame256();
 			byte[] len = util.encodeLength((long)frame.length);
+			DebugLogger.log("go!!");
 			inet.send(len);
-			inet.send(frame);
 		}
 	}
 	

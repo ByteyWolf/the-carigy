@@ -20,7 +20,6 @@ public class Bluetooth {
 			connected = true;
 		} catch (Exception e) {
 			DebugLogger.logColor(e.toString(), 0xFF0000);
-		} finally {
 			connected = false;
 		}
 		return connected;
