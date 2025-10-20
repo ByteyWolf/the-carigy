@@ -1,0 +1,12 @@
+.classpath
+.project
+.settings/
+*.swp
+
+.mtj/
+.mtj.tmp/
+
+bin/
+
+# Optional: IDE backup or swap files
+*~

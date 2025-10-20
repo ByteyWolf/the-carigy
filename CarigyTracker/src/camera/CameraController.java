@@ -4,22 +4,30 @@ import javax.microedition.media.*;
 import javax.microedition.media.control.*;
 import javax.microedition.lcdui.*;
 
+import debug.DebugLogger;
+
 public class CameraController {
     private Player player;
     private VideoControl videoControl;
     private int width = 160;
     private int height = 120;
 
-    public CameraController() throws Exception {
-        player = Manager.createPlayer("capture://video");
-        player.realize();
+    public boolean connect() {
+    		try {
+    			player = Manager.createPlayer("capture://video");
+    			player.realize();
 
-        videoControl = (VideoControl) player.getControl("VideoControl");
-        videoControl.initDisplayMode(VideoControl.USE_DIRECT_VIDEO, null);
-        videoControl.setDisplayLocation(0,0);
-        videoControl.setDisplaySize(width, height);
+    			videoControl = (VideoControl) player.getControl("VideoControl");
+    			videoControl.initDisplayMode(VideoControl.USE_DIRECT_VIDEO, null);
+    			videoControl.setDisplayLocation(0,0);
+    			videoControl.setDisplaySize(width, height);
 
-        player.start();
+    			player.start();
+    			return true;
+    		} catch (Exception e) {
+    			DebugLogger.logColor(e.toString(), 0xFF0000);
+    			return false;
+    		}
     }
 
     public int[] getNextFrame() {
